@@ -181,8 +181,8 @@ if (isset($_GET['store_id'])) {
                     <option value="อื่นๆ" <?php echo ($store['category'] == 'อื่นๆ') ? 'selected' : ''; ?>>อื่นๆ</option>
                 </select>
                 <button class="btn-confirm" type="submit">ยืนยัน</button>
-                <button class="btn-cancel" type="button">ยกเลิก</button>
-            </form>
+                <button class="btn-cancel" type="button" onclick="window.history.back();">ยกเลิก</button>
+                </form>
         </div>
     </div>
 </body>

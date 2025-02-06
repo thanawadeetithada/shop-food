@@ -6,7 +6,30 @@ if (!isset($_SESSION['user_id']) || (!in_array($_SESSION['role'], ['admin']))) {
     header('Location: index.php'); 
     exit();
 }
+// เพิ่มโค้ดหลังจากเริ่มต้นการเชื่อมต่อกับฐานข้อมูล
+// เช็คว่ามี store_id ในตาราง users หรือไม่
+$sql_check_store = "SELECT store_id FROM users WHERE store_id IS NOT NULL LIMIT 1"; 
+$stmt_check = $conn->prepare($sql_check_store);
+$stmt_check->execute();
+$check_result = $stmt_check->get_result();
 
+if ($check_result->num_rows > 0) {
+    // ถ้ามี store_id ในตาราง users ให้ทำการอัพเดต store_id เป็น NULL
+    $sql_update = "UPDATE users SET store_id = NULL WHERE store_id IS NOT NULL";
+    $stmt_update = $conn->prepare($sql_update);
+    if ($stmt_update->execute()) {
+         error_log("อัพเดต store_id เป็น NULL เรียบร้อยแล้ว");
+    } else {
+        error_log("เกิดข้อผิดพลาดในการอัพเดต store_id");
+    }
+} else {
+    // ถ้าไม่มี store_id ในตาราง users
+    error_log("ไม่มี store_id ในตาราง users");
+}
+
+
+
+// ลบเงื่อนไขการกรองหมวดหมู่
 $sql = "SELECT store_id, store_name, user_name, category, phone, image_url FROM stores";
 
 $stmt = $conn->prepare($sql);

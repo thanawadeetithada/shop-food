@@ -267,7 +267,7 @@ main {
                         $status_display = 'กำลังเตรียม';
                         $status_class = 'status-prepare';
                     } elseif ($status === 'complete') {  
-                        $status_display = 'เสร็จสิ้นนแล้ว'; 
+                        $status_display = 'เสร็จสิ้นแล้ว'; 
                         $status_class = 'status-complete';
                     } else {
                         $status_display = 'รับออเดอร์';

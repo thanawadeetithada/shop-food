@@ -308,7 +308,7 @@ if ($result->num_rows > 0) {
             $status_text = 'รับออเดอร์';
             $status_class = 'order-receive';
         } elseif ($status_order == 'prepare') {
-            $status_text = 'เสร็จสื้น';
+            $status_text = 'เสร็จสิ้น';
             $status_class = 'order-prepare'; 
         } elseif ($status_order == 'complete') {
             $status_text = 'เสร็จสิ้นแล้ว';

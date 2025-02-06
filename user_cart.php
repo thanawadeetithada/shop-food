@@ -67,23 +67,20 @@ $stmt->close();
         background-color: white;
         margin: 0;
         padding: 0;
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
         height: 100vh;
         overflow: hidden;
     }
 
     .order-container {
         background: white;
-        padding: 20px;
+        padding: 40px;
         width: 100%;
-        max-width: 400px;
         height: 100%;
         display: flex;
         flex-direction: column;
         overflow-y: auto;
         padding-bottom: 100px;
+        box-sizing: border-box;
     }
 
     .order-item {
@@ -139,11 +136,13 @@ $stmt->close();
         font-weight: bold;
         font-size: 16px;
     }
+
     .price {
         font-size: 16px;
         font-weight: bold;
         margin: 10px;
     }
+
     .delete-icon {
         color: red;
         font-size: 18px;
@@ -297,21 +296,21 @@ $stmt->close();
                     })
                     .then(response => {
                         if (!response.ok) {
-                        
+
                             throw new Error('Response was not ok');
                         }
                         return response.json();
                     })
                     .then(data => {
                         if (data.success) {
-                            console.log('data',data)
+                            console.log('data', data)
                             document.getElementById(`qty-${orderItemId}`).textContent = data
                                 .new_quantity;
                             document.getElementById(`subtotal-${orderItemId}`).textContent =
                                 `${data.new_subtotal}.-`;
                             document.querySelector(".reorder-button").textContent =
                                 `ยืนยันคำสั่งซื้อ ${data.new_total_price}.-`;
-                        } else if (data.new_quantity = 1){
+                        } else if (data.new_quantity = 1) {
                             alert("สินค้าจำนวน 1 ชิ้น กรุณากดลบ");
                         } else {
                             alert("เกิดข้อผิดพลาด: " + data.message);
@@ -325,4 +324,5 @@ $stmt->close();
     </script>
 
 </body>
+
 </html>
