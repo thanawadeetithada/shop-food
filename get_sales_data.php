@@ -6,6 +6,17 @@ header('Content-Type: application/json');
 $startDate = $_GET['start_date'] ?? '1970-01-01'; // ค่าเริ่มต้นเมื่อไม่มีการเลือกวันที่
 $endDate = $_GET['end_date'] ?? date('Y-m-d'); 
 
+// ถ้าส่งแค่วันที่เดียว จะตั้งค่า start_date และ end_date ให้ครอบคลุมทั้งวัน
+if ($startDate === $endDate) {
+    // ถ้า start_date และ end_date ตรงกัน ให้ตั้งค่าเวลาเป็น 00:00:00 ถึง 23:59:59
+    $startDate = $startDate . ' 00:00:00';
+    $endDate = $endDate . ' 23:59:59';
+} else {
+    // ถ้า start_date และ end_date ไม่ตรงกัน กำหนดเวลาเริ่มต้นและสิ้นสุด
+    $startDate = $startDate . ' 00:00:00';
+    $endDate = $endDate . ' 23:59:59';
+}
+
 // รับค่า store_id จาก URL
 $store_id = $_GET['store_id'] ?? null;
 
@@ -15,11 +26,11 @@ if ($store_id) {
 
     // SQL สำหรับการคำนวณยอดขายรวมทั้งหมด
     $sql_total_sales = "
-    SELECT SUM(oi.subtotal) AS total_sales_all
+    SELECT SUM(oi.subtotal * oi.quantity) AS total_sales_all
     FROM orders_status_items oi
     JOIN orders_status co ON oi.orders_status_id = co.orders_status_id
     WHERE co.store_id = ? 
-    AND co.created_at BETWEEN ? AND ?
+    AND co.created_at BETWEEN ? AND ? 
     AND co.status_order = 'complete'
 ";
 
@@ -31,17 +42,16 @@ if ($store_id) {
     $stmt->close();
 
     // SQL สำหรับการคำนวณยอดขายของแต่ละสินค้า
-    $sql_product_sales = "
-    SELECT oi.product_id, p.product_name, SUM(oi.subtotal) AS total_sales
+   $sql_product_sales = "
+    SELECT oi.product_id, p.product_name, SUM(oi.subtotal * oi.quantity) AS total_sales
     FROM orders_status_items oi
     JOIN orders_status co ON oi.orders_status_id = co.orders_status_id
     JOIN products p ON oi.product_id = p.product_id
     WHERE co.store_id = ? 
     AND co.created_at BETWEEN ? AND ? 
     AND co.status_order = 'complete'
-    GROUP BY oi.product_id
+    GROUP BY oi.product_id, p.product_name
 ";
-
 
     $stmt = $conn->prepare($sql_product_sales);
     $stmt->bind_param('iss', $store_id, $startDate, $endDate);

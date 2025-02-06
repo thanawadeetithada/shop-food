@@ -93,12 +93,12 @@ $stmt->close();
 $status_order = isset($_GET['status_order']) ? $_GET['status_order'] : '';
 
 $sql = "
-    SELECT oi.product_id, p.product_name, SUM(oi.subtotal) AS total_sales
+    SELECT oi.product_id, p.product_name, SUM(oi.subtotal * oi.quantity) AS total_sales
     FROM orders_status os
     JOIN orders_status_items oi ON os.orders_status_id = oi.orders_status_id
     JOIN products p ON oi.product_id = p.product_id
     WHERE os.store_id = ? AND os.status_order = 'complete'
-    GROUP BY oi.product_id
+    GROUP BY oi.product_id, p.product_name
 ";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $store_id);
