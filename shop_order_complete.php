@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $store_id = $_SESSION['store_id'];
@@ -24,7 +23,6 @@ if (isset($_SESSION['user_id'])) {
     * {
         text-decoration: none;
     }
-
     .circle span {
         font-size: 16px;
         color: #333;
@@ -33,7 +31,6 @@ if (isset($_SESSION['user_id'])) {
         border-radius: 15px;
 
     }
-
     .circle .correct {
         background-color: #FDDF59;
     }
@@ -44,20 +41,15 @@ if (isset($_SESSION['user_id'])) {
         padding: 0;
         background-color: #fff;
         display: flex;
-        /* เพิ่ม Flexbox */
         flex-direction: column;
-        /* จัดเรียงเนื้อหาในแนวตั้ง */
         min-height: 100vh;
-        /* ให้แน่ใจว่า body มีความสูงเต็มหน้าจอ */
     }
 
     .container {
         flex-grow: 1;
-        /* ให้ container ขยายเต็มพื้นที่ที่เหลือ */
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        /* จัดเนื้อหาตั้งแต่ด้านบน */
         background: #fff;
         overflow-y: auto;
         padding: 0px 20px;
@@ -91,15 +83,11 @@ if (isset($_SESSION['user_id'])) {
         font-size: 2rem;
     }
 
-
-
-
     .status-item {
         display: flex;
         justify-content: space-between;
         padding: 1.5rem 1rem 0.5rem 1rem;
         color: black;
-
     }
 
     .icon {
@@ -125,25 +113,18 @@ if (isset($_SESSION['user_id'])) {
 
     .row {
         display: flex;
-        /* ใช้ Flexbox */
         justify-content: space-between;
-        /* กระจายพื้นที่ระหว่างคอลัมน์ */
         align-items: center;
-        /* จัดให้อยู่ตรงกลางในแนวตั้ง */
         margin-bottom: 5px;
     }
 
     .column {
-
         text-align: center;
-        /* จัดข้อความให้อยู่ตรงกลาง */
         padding: 0 5px 0 0;
-        /* เพิ่มช่องว่างระหว่างคอลัมน์ */
     }
 
     .column:last-child {
         text-align: right;
-        /* จัดข้อความในคอลัมน์สุดท้ายให้อยู่ขวา */
     }
 
 
@@ -292,7 +273,7 @@ if (isset($_SESSION['user_id'])) {
 
             <main>
                 <?php
-// รวมไฟล์เชื่อมต่อฐานข้อมูล
+
 include 'db.php';
 $sql = "
     SELECT o.created_at, o.orders_status_id, o.total_price, p.product_name, osi.notes, o.status_order, u.phone, osi.quantity, osi.options
@@ -365,7 +346,6 @@ if ($result->num_rows > 0) {
     echo '<p style="margin: 20px;">ไม่พบข้อมูลคำสั่งซื้อ</p>';
 }
 
-// ปิดการเชื่อมต่อฐานข้อมูล
 $conn->close();
 ?>
 

@@ -22,14 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $category = $_POST['category'];
 
-    // ตรวจสอบหมวดหมู่ว่ามีค่าถูกต้องหรือไม่
     $allowed_categories = ['อาหาร', 'เครื่องดื่ม', 'ของทานเล่น', 'อื่นๆ'];
     if (!in_array($category, $allowed_categories)) {
         echo "<script>alert('หมวดหมู่ไม่ถูกต้อง'); window.history.back();</script>";
         exit();
     }
 
-    // ตรวจสอบว่าหมายเลขโทรศัพท์ถูกใช้ไปแล้วหรือยัง
     $check_stmt = $conn->prepare("SELECT phone FROM users WHERE phone = ?");
     if (!$check_stmt) {
         die("Query failed: " . $conn->error);
@@ -44,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $check_stmt->close();
 
-    // ตรวจสอบการอัปโหลดไฟล์
     if ($_FILES["image"]["error"] !== UPLOAD_ERR_OK) {
         echo "<script>alert('เกิดข้อผิดพลาดในการอัปโหลดไฟล์!'); window.history.back();</script>";
         exit();

@@ -13,7 +13,6 @@ if (isset($_SESSION['user_id'])) {
     $stmt->close();
 }
 
-// เปลี่ยนข้อความตาม role ของผู้ใช้
 $title_text = ($role === 'admin') ? "เพิ่มร้านค้า" : "ลงทะเบียน";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,14 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $category = $_POST['category'];
 
-    // ตรวจสอบหมวดหมู่ว่ามีค่าถูกต้องหรือไม่
     $allowed_categories = ['อาหาร', 'เครื่องดื่ม', 'ของทานเล่น', 'อื่นๆ'];
     if (!in_array($category, $allowed_categories)) {
         echo "<script>alert('หมวดหมู่ไม่ถูกต้อง'); window.history.back();</script>";
         exit();
     }
 
-    // ตรวจสอบว่าหมายเลขโทรศัพท์ถูกใช้ไปแล้วหรือยัง
     $check_stmt = $conn->prepare("SELECT phone FROM users WHERE phone = ?");
     if (!$check_stmt) {
         die("Query failed: " . $conn->error);
@@ -45,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $check_stmt->close();
 
-    // ตรวจสอบการอัปโหลดไฟล์
     if ($_FILES["image"]["error"] !== UPLOAD_ERR_OK) {
         echo "<script>alert('เกิดข้อผิดพลาดในการอัปโหลดไฟล์!'); window.history.back();</script>";
         exit();
@@ -67,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // เพิ่มข้อมูลผู้ใช้ลงในตาราง users
     $stmt = $conn->prepare("INSERT INTO users (phone, password, role) VALUES (?, ?, 'store_owner')");
     if (!$stmt) {
         die("Query failed: " . $conn->error);
@@ -76,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
         $user_id = $conn->insert_id;
 
-        // เพิ่มข้อมูลร้านค้าในตาราง stores
         $stmt = $conn->prepare("INSERT INTO stores (store_name, user_id, user_name, category, phone, image_url) VALUES (?, ?, ?, ?, ?, ?)");
         if (!$stmt) {
             die("Query failed: " . $conn->error);

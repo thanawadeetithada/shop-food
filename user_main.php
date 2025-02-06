@@ -3,8 +3,6 @@ include 'db.php';
 
 $category = isset($_GET['category']) ? $_GET['category'] : '';
 $query = isset($_GET['query']) ? $_GET['query'] : '';
-
-// SQL Query
 $sql = "SELECT store_id, store_name, user_name, category, phone, image_url FROM stores";
 
 $conditions = [];
@@ -25,10 +23,8 @@ if (!empty($conditions)) {
 }
 
 $stmt = $conn->prepare($sql);
-
-// Binding parameters based on the conditions
 if (!empty($params)) {
-    $types = str_repeat('s', count($params)); // assuming all params are strings
+    $types = str_repeat('s', count($params));
     $stmt->bind_param($types, ...$params);
 }
 
@@ -327,26 +323,21 @@ $result = $stmt->get_result();
             <div class="shops" id="shop-results">
                 <?php
     if ($result->num_rows > 0) {
-        // ดึงข้อมูลร้านค้าจากฐานข้อมูล
         while ($row = $result->fetch_assoc()) {
-            $image_url = htmlspecialchars($row['image_url']);  // URL ของภาพร้าน
-            $store_name = htmlspecialchars($row['store_name']);  // ชื่อร้าน
-            $store_id = htmlspecialchars($row['store_id']);  // รหัสร้าน
+            $image_url = htmlspecialchars($row['image_url']); 
+            $store_name = htmlspecialchars($row['store_name']);
+            $store_id = htmlspecialchars($row['store_id']);
 
-            // แสดงร้านค้าแต่ละร้าน
             echo '<div class="shop" onclick="location.href=\'user_detail_shop.php?store_id=' . $store_id . '\'">
                     <img src="' . $image_url . '" alt="' . $store_name . '">
                     <a href="user_detail_shop.php?store_id=' . $store_id . '">' . $store_name . '</a>
                   </div>';
         }
     } else {
-        // หากไม่มีร้านค้าให้แสดงข้อความนี้
         echo "<p>ไม่มีร้านค้า</p>";
     }
     ?>
             </div>
-
-
         </div>
     </div>
 
@@ -387,21 +378,19 @@ $result = $stmt->get_result();
     document.addEventListener('DOMContentLoaded', function() {
         const categories = document.querySelectorAll('.category');
         const urlParams = new URLSearchParams(window.location.search);
-        const categoryParam = urlParams.get('category'); // รับค่าจาก URL
+        const categoryParam = urlParams.get('category');
 
         categories.forEach(function(category) {
-            // ตรวจสอบว่า category ที่เลือกตรงกับค่าจาก URL หรือไม่
             const categoryName = category.querySelector('a').getAttribute('href').split('=')[1];
             if (categoryName === categoryParam) {
                 category.classList.add('active');
             }
 
-            // เมื่อคลิกหมวดหมู่ให้เพิ่ม active
             category.addEventListener('click', function() {
                 categories.forEach(function(cat) {
-                    cat.classList.remove('active'); // ลบ active ออกจากทุกหมวดหมู่
+                    cat.classList.remove('active');
                 });
-                category.classList.add('active'); // เพิ่ม active ให้กับหมวดหมู่ที่เลือก
+                category.classList.add('active');
             });
         });
     });
@@ -427,7 +416,5 @@ $result = $stmt->get_result();
         }
     }
     </script>
-
 </body>
-
 </html>

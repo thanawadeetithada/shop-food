@@ -243,7 +243,6 @@ if ($order_id != 0 && $status_order == 'complete') {
 
     .order-content {
         flex: 1;
-        /* ให้ content ขยายจนเต็มพื้นที่ */
         padding: 20px;
     }
 
@@ -343,23 +342,19 @@ if ($order_id != 0 && $status_order == 'complete') {
 
     <script>
     function updateStatus() {
-        const orderId = <?= $order_id ?>;  // Order ID from the PHP variable
-        const statusDiv = document.querySelector(".step");  // Step status div in the HTML
+        const orderId = <?= $order_id ?>;
+        const statusDiv = document.querySelector(".step");
 
-        // Make an AJAX request to get the updated order status
         fetch(`update_status_order_user.php?orders_status_id=${orderId}`)
-            .then(response => response.json())  // Parse the JSON response
+            .then(response => response.json())
             .then(data => {
-                const statusOrder = data.status_order;  // Extract the status
-
-                // Determine the step classes based on the order status
+                const statusOrder = data.status_order;
                 const stepClass = [
                     (statusOrder === 'receive' || statusOrder === 'prepare' || statusOrder === 'complete') ? 'active' : '',
                     (statusOrder === 'prepare' || statusOrder === 'complete') ? 'active' : '',
                     (statusOrder === 'complete') ? 'active' : ''
                 ];
 
-                // Update the status circles and lines based on the step class
                 const circles = statusDiv.querySelectorAll('.circle');
                 const lines = statusDiv.querySelectorAll('.line');
 
@@ -374,8 +369,6 @@ if ($order_id != 0 && $status_order == 'complete') {
             })
             .catch(error => console.error('Error fetching order status:', error));
     }
-
-    // Call the updateStatus function every 1 second (1000ms)
     setInterval(updateStatus, 1000);
 </script>
 

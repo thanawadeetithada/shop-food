@@ -116,28 +116,19 @@ if (isset($_SESSION['user_id'])) {
 
     .row {
         display: flex;
-        /* ใช้ Flexbox */
         justify-content: space-between;
-        /* กระจายพื้นที่ระหว่างคอลัมน์ */
         align-items: center;
-        /* จัดให้อยู่ตรงกลางในแนวตั้ง */
         margin-bottom: 5px;
     }
 
     .column {
-
         text-align: center;
-        /* จัดข้อความให้อยู่ตรงกลาง */
         padding: 0 5px 0 0;
-        /* เพิ่มช่องว่างระหว่างคอลัมน์ */
     }
 
     .column:last-child {
         text-align: right;
-        /* จัดข้อความในคอลัมน์สุดท้ายให้อยู่ขวา */
     }
-
-
     .footer {
         align-items: center;
         display: flex;
@@ -281,7 +272,6 @@ if (isset($_SESSION['user_id'])) {
 
             <main>
                 <?php
-// รวมไฟล์เชื่อมต่อฐานข้อมูล
 include 'db.php';
 $sql = "
     SELECT o.created_at, o.orders_status_id, o.total_price, p.product_name, osi.notes, o.status_order, u.phone, osi.quantity, osi.options
@@ -354,7 +344,6 @@ if ($result->num_rows > 0) {
     echo '<p style="margin: 20px;">ไม่พบข้อมูลคำสั่งซื้อ</p>';
 }
 
-// ปิดการเชื่อมต่อฐานข้อมูล
 $conn->close();
 ?>
 
@@ -420,7 +409,5 @@ $conn->close();
             .catch(error => console.error('Error:', error));
     }
     </script>
-
 </body>
-
 </html>

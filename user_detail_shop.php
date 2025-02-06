@@ -14,11 +14,7 @@ if (!isset($_GET['store_id']) || empty($_GET['store_id'])) {
 
 
 $store_id = $_GET['store_id']; 
-
-// ตรวจสอบคำค้นหาจาก URL
 $query = isset($_GET['query']) ? $_GET['query'] : '';
-
-// SQL query สำหรับค้นหาสินค้าจากชื่อสินค้า
 $sql = "SELECT product_id, product_name, price, image_url, is_show FROM products WHERE store_id = ? AND is_show = 1";
 
 if (!empty($query)) {
@@ -28,11 +24,10 @@ if (!empty($query)) {
 $stmt = $conn->prepare($sql);
 
 if (!empty($query)) {
-    // เพิ่มเครื่องหมาย % รอบคำค้นหาเพื่อทำการค้นหาคล้าย
-    $searchQuery = "%" . $query . "%"; // ให้ค้นหาแบบคล้ายคลึง
-    $stmt->bind_param("is", $store_id, $searchQuery); // ใช้คำค้นหาที่ bind
+    $searchQuery = "%" . $query . "%";
+    $stmt->bind_param("is", $store_id, $searchQuery);
 } else {
-    $stmt->bind_param("i", $store_id); // ถ้าไม่มีคำค้นหาจะค้นหาทุกตัว
+    $stmt->bind_param("i", $store_id);
 }
 
 $stmt->execute();
@@ -236,7 +231,7 @@ while ($row = $result->fetch_assoc()) {
             value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
         <button type="submit"><i class="fas fa-search"></i></button>
     </div>
-    <input type="hidden" name="store_id" value="<?php echo $store_id; ?>"> <!-- เพิ่ม store_id -->
+    <input type="hidden" name="store_id" value="<?php echo $store_id; ?>">
 </form>
 
     </div>

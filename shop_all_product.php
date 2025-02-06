@@ -12,7 +12,7 @@ if (isset($_SESSION['user_id'])) {
 
 $store_id = $_SESSION['store_id'];
 
-$search_query = isset($_GET['query']) ? '%' . $_GET['query'] . '%' : '%%';  // ใช้ % เพื่อค้นหาทุกอย่างที่มีคำนี้
+$search_query = isset($_GET['query']) ? '%' . $_GET['query'] . '%' : '%%';
 
 $sql = "SELECT product_id, product_name, price, image_url, is_show 
         FROM products 
@@ -193,7 +193,6 @@ $result = $stmt->get_result();
         opacity: 0;
         cursor: pointer;
         z-index: 2;
-        /* ✅ ให้ checkbox อยู่เหนือสุด */
     }
 
     .toggle-slider {

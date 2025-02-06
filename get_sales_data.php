@@ -2,29 +2,22 @@
 include "db.php";
 header('Content-Type: application/json');
 
-// รับค่า start_date และ end_date จาก URL
-$startDate = $_GET['start_date'] ?? '1970-01-01'; // ค่าเริ่มต้นเมื่อไม่มีการเลือกวันที่
+$startDate = $_GET['start_date'] ?? '1970-01-01';
 $endDate = $_GET['end_date'] ?? date('Y-m-d'); 
 
-// ถ้าส่งแค่วันที่เดียว จะตั้งค่า start_date และ end_date ให้ครอบคลุมทั้งวัน
 if ($startDate === $endDate) {
-    // ถ้า start_date และ end_date ตรงกัน ให้ตั้งค่าเวลาเป็น 00:00:00 ถึง 23:59:59
     $startDate = $startDate . ' 00:00:00';
     $endDate = $endDate . ' 23:59:59';
 } else {
-    // ถ้า start_date และ end_date ไม่ตรงกัน กำหนดเวลาเริ่มต้นและสิ้นสุด
     $startDate = $startDate . ' 00:00:00';
     $endDate = $endDate . ' 23:59:59';
 }
 
-// รับค่า store_id จาก URL
 $store_id = $_GET['store_id'] ?? null;
 
 error_log("Fetching sales data for Store ID: $store_id, Start Date: $startDate, End Date: $endDate");
 
 if ($store_id) {
-
-    // SQL สำหรับการคำนวณยอดขายรวมทั้งหมด
     $sql_total_sales = "
     SELECT SUM(oi.subtotal * oi.quantity) AS total_sales_all
     FROM orders_status_items oi
@@ -40,8 +33,6 @@ if ($store_id) {
     $stmt->bind_result($total_sales_all);
     $stmt->fetch();
     $stmt->close();
-
-    // SQL สำหรับการคำนวณยอดขายของแต่ละสินค้า
    $sql_product_sales = "
     SELECT oi.product_id, p.product_name, SUM(oi.subtotal * oi.quantity) AS total_sales
     FROM orders_status_items oi
@@ -69,14 +60,11 @@ if ($store_id) {
 
     $stmt->close();
     $conn->close();
-
-    // ส่งข้อมูลกลับไปเป็น JSON
     echo json_encode([
-        'total_sales_all' => $total_sales_all ?? 0,  // กำหนดค่าเป็น 0 ถ้าไม่มีข้อมูลยอดขาย
+        'total_sales_all' => $total_sales_all ?? 0,
         'product_sales' => $product_sales
     ]);
 } else {
-    // ถ้าหากไม่มี store_id หรือ parameter ที่จำเป็น
     echo json_encode(['error' => 'Missing store_id parameter']);
 }
 ?>

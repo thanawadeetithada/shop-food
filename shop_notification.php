@@ -10,7 +10,6 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-// ตั้งค่า notification เป็น 0 สำหรับคำสั่งซื้อทั้งหมดของร้าน
 $sqlUpdateNotification = "UPDATE orders_status SET notification = 0 WHERE store_id = ?";
 $stmtUpdateNotification = $conn->prepare($sqlUpdateNotification);
 $stmtUpdateNotification->bind_param("i", $store_id);
@@ -22,7 +21,7 @@ $sql = "SELECT orders_status_id, status, total_price, user_id, store_id, created
         ORDER BY created_at DESC";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $store_id);  // "i" indicates that the parameter is an integer
+$stmt->bind_param("i", $store_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -52,7 +51,6 @@ $result = $stmt->get_result();
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-        /* ทำให้ body ครอบคลุมพื้นที่ทั้งหมด */
     }
 
 
@@ -60,7 +58,6 @@ $result = $stmt->get_result();
         display: flex;
         flex-direction: column;
         flex: 1;
-        /* ให้ container ขยายเต็มพื้นที่ที่เหลือ */
     }
 
     header {
@@ -73,7 +70,6 @@ $result = $stmt->get_result();
 
     main {
         flex-grow: 1;
-        /* ทำให้ main content ขยายเต็มพื้นที่ที่เหลือ */
         overflow-y: auto;
         padding: 0 1rem;
     }
@@ -178,7 +174,6 @@ $result = $stmt->get_result();
         border-radius: 100px;
         margin: 20px;
         margin-top: 20px;
-        /* ดัน footer ไปที่ด้านล่างสุด */
     }
 
     .footer-item {

@@ -125,5 +125,4 @@ $conn->close();
         <p>จำรหัสผ่านได้แล้ว? <a href="index.php">เข้าสู่ระบบ</a></p>
     </div>
 </body>
-
 </html>

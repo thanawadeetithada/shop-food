@@ -289,10 +289,7 @@ if ($orders_status_id != 0 && $status_order != 'complete') {
 
     </div>
     <script>
-    // ส่งข้อมูลจาก PHP ไปยัง JavaScript
     var items = <?php echo json_encode($items); ?>;
-
-    // ใช้ console.log แสดงค่าของ $items
     console.log(items);
     </script>
 

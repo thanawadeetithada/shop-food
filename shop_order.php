@@ -42,20 +42,15 @@ if (isset($_SESSION['user_id'])) {
         padding: 0;
         background-color: #fff;
         display: flex;
-        /* เพิ่ม Flexbox */
         flex-direction: column;
-        /* จัดเรียงเนื้อหาในแนวตั้ง */
         min-height: 100vh;
-        /* ให้แน่ใจว่า body มีความสูงเต็มหน้าจอ */
     }
 
     .container {
         flex-grow: 1;
-        /* ให้ container ขยายเต็มพื้นที่ที่เหลือ */
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        /* จัดเนื้อหาตั้งแต่ด้านบน */
         background: #fff;
         overflow-y: auto;
         padding: 0px 20px;
@@ -123,25 +118,18 @@ if (isset($_SESSION['user_id'])) {
 
     .row {
         display: flex;
-        /* ใช้ Flexbox */
         justify-content: space-between;
-        /* กระจายพื้นที่ระหว่างคอลัมน์ */
         align-items: center;
-        /* จัดให้อยู่ตรงกลางในแนวตั้ง */
         margin-bottom: 5px;
     }
 
     .column {
-
         text-align: center;
-        /* จัดข้อความให้อยู่ตรงกลาง */
         padding: 0 5px 0 0;
-        /* เพิ่มช่องว่างระหว่างคอลัมน์ */
     }
 
     .column:last-child {
         text-align: right;
-        /* จัดข้อความในคอลัมน์สุดท้ายให้อยู่ขวา */
     }
 
 
@@ -288,7 +276,6 @@ if (isset($_SESSION['user_id'])) {
 
             <main>
                 <?php
-// รวมไฟล์เชื่อมต่อฐานข้อมูล
 include 'db.php';
 $sql = "
     SELECT o.created_at, o.orders_status_id, o.total_price, p.product_name, osi.notes, o.status_order, u.phone, osi.quantity, osi.options
@@ -304,22 +291,18 @@ $sql = "
 $result = $conn->query($sql);
 $orders = [];
 if ($result->num_rows > 0) {
-    // เก็บข้อมูลใน array ตาม `orders_status_id`
     while($row = $result->fetch_assoc()) {
         $orders[$row['orders_status_id']][] = $row;
     }
 
-    // แสดงข้อมูลคำสั่งซื้อ
     foreach ($orders as $order_id => $order_items) {
-        // เริ่มการแสดงผลของคำสั่งซื้อ
-        $first_item = $order_items[0]; // ใช้ข้อมูลของสินค้าตัวแรกในการแสดงเวลาแสดงคำสั่งซื้อ
+        $first_item = $order_items[0];
         $created_at = date("d M y, H:i", strtotime($first_item['created_at']));
         $total_price = number_format($first_item['total_price'], 2) . "฿";
         $phone = $first_item['phone'];
         $status_order = $first_item['status_order'];
         $notes = $first_item['notes'] ? $first_item['notes'] : '-';
         $options = $first_item['options'] ? $first_item['options'] : '-';
-        // กำหนดสถานะคำสั่งซื้อ
         $status_class = '';
         $status_text = '';
         if (empty($status_order) || is_null($status_order)) {
@@ -366,7 +349,6 @@ if ($result->num_rows > 0) {
     echo '<p style="margin: 20px;">ไม่พบข้อมูลคำสั่งซื้อ</p>';
 }
 
-// ปิดการเชื่อมต่อฐานข้อมูล
 $conn->close();
 ?>
 

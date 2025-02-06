@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_id']) || (!in_array($_SESSION['role'], ['admin']))) {
     exit();
 }
 
-// ลบเงื่อนไขการกรองหมวดหมู่
 $sql = "SELECT store_id, store_name, user_name, category, phone, image_url FROM stores";
 
 $stmt = $conn->prepare($sql);

@@ -28,7 +28,6 @@ if (isset($_SESSION['user_id'])) {
         margin-top: 10px;
         padding: 0.2rem 0.5rem;
         border-radius: 15px;
-
     }
 
     .circle .correct {
@@ -41,20 +40,15 @@ if (isset($_SESSION['user_id'])) {
         padding: 0;
         background-color: #fff;
         display: flex;
-        /* เพิ่ม Flexbox */
         flex-direction: column;
-        /* จัดเรียงเนื้อหาในแนวตั้ง */
         min-height: 100vh;
-        /* ให้แน่ใจว่า body มีความสูงเต็มหน้าจอ */
     }
 
     .container {
         flex-grow: 1;
-        /* ให้ container ขยายเต็มพื้นที่ที่เหลือ */
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        /* จัดเนื้อหาตั้งแต่ด้านบน */
         background: #fff;
         overflow-y: auto;
         padding: 0px 20px;
@@ -123,25 +117,18 @@ if (isset($_SESSION['user_id'])) {
 
     .row {
         display: flex;
-        /* ใช้ Flexbox */
         justify-content: space-between;
-        /* กระจายพื้นที่ระหว่างคอลัมน์ */
         align-items: center;
-        /* จัดให้อยู่ตรงกลางในแนวตั้ง */
         margin-bottom: 5px;
     }
 
     .column {
-
         text-align: center;
-        /* จัดข้อความให้อยู่ตรงกลาง */
         padding: 0 5px 0 0;
-        /* เพิ่มช่องว่างระหว่างคอลัมน์ */
     }
 
     .column:last-child {
         text-align: right;
-        /* จัดข้อความในคอลัมน์สุดท้ายให้อยู่ขวา */
     }
 
 
@@ -225,29 +212,31 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .order-receive {
-        background-color:  #ffffff;
+        background-color: #ffffff;
         color: #52bb4d;
         font-size: 1rem;
         margin: 0;
         border: 1px;
         width: fit-content;
         border-radius: 15px;
-        padding: 1px 8px;;
+        padding: 1px 8px;
+        ;
     }
 
     .order-prepare {
-        background-color:  #ffffff;
-        color:  #ff7e2e;
+        background-color: #ffffff;
+        color: #ff7e2e;
         font-size: 1rem;
         margin: 0;
         border: 1px;
         width: fit-content;
         border-radius: 15px;
-        padding: 1px 8px;;
+        padding: 1px 8px;
+        ;
     }
 
     .order-complete {
-        background-color:  #ffffff;
+        background-color: #ffffff;
         color: #52bb4d;
         font-size: 1rem;
         margin: 0;
@@ -401,7 +390,7 @@ $conn->close();
                     statusClass = 'order-receive';
                 } else if (statusOrder === 'prepare') {
                     statusText = 'กำลังเตรียม';
-                    statusClass = 'order-prepare'; 
+                    statusClass = 'order-prepare';
                 } else if (statusOrder === 'complete') {
                     statusText = 'เสร็จสิ้นแล้ว';
                     statusClass = 'order-complete';
@@ -427,8 +416,7 @@ $conn->close();
         });
     }
     setInterval(updateOrderStatuses, 1000);
-
-</script>
+    </script>
     </script>
 </body>
 

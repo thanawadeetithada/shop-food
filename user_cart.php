@@ -1,15 +1,13 @@
 <?php
 session_start();
-include 'db.php'; // นำเข้าไฟล์ db.php
+include 'db.php';
 
-// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่ (ต้องมี user_id)
 if (!isset($_SESSION['user_id'])) {
     die("กรุณาเข้าสู่ระบบ");
 }
 
-$user_id = $_SESSION['user_id']; // ดึง user_id จาก session
+$user_id = $_SESSION['user_id'];
 
-// ดึงข้อมูล order ล่าสุดของ user พร้อม product_name
 $sql = "SELECT o.cart_order_id, o.total_price, o.payment_method, o.store_id, 
                oi.cart_order_item_id, oi.product_id, oi.quantity, oi.extra_cost, oi.subtotal, oi.notes, 
                p.product_name
@@ -141,15 +139,11 @@ $stmt->close();
         font-weight: bold;
         font-size: 16px;
     }
-
-    /* Price */
     .price {
         font-size: 16px;
         font-weight: bold;
         margin: 10px;
     }
-
-    /* Delete Icon */
     .delete-icon {
         color: red;
         font-size: 18px;
@@ -331,5 +325,4 @@ $stmt->close();
     </script>
 
 </body>
-
 </html>

@@ -5,15 +5,14 @@ include('db.php');
 if (isset($_GET['store_id'])) {
     $store_id = $_GET['store_id'];
 
-    // ดึงข้อมูลร้านค้าจากฐานข้อมูลโดยใช้ store_id
     $sql = "SELECT * FROM stores WHERE store_id = ?";
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("i", $store_id); // ระบุชนิดข้อมูลเป็น integer
+        $stmt->bind_param("i", $store_id);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            $store = $result->fetch_assoc(); // ดึงข้อมูลเป็น array
+            $store = $result->fetch_assoc();
         } else {
             echo "ข้อมูลร้านค้าไม่พบ";
             exit;

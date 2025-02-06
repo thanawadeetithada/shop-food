@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         echo "บันทึกการแก้ไขสำเร็จ!";
-        header("Location: shop_all_product.php"); // กลับไปที่หน้ารายการสินค้า
+        header("Location: shop_all_product.php");
         exit();
     } else {
         echo "เกิดข้อผิดพลาด: " . $stmt->error;

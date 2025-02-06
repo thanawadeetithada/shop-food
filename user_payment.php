@@ -96,13 +96,11 @@ if ($cart_order_id == 0) {
         <p style="color: green;"><?php echo htmlspecialchars($success_message); ?></p>
         <?php endif; ?>
 
-        <!-- ส่วนแสดง QR Code สำหรับการชำระเงิน -->
         <div class="payment-section">
             <img src="img/QRCode.jpg" alt="QR Code สำหรับการชำระเงิน"
                 style="max-width: 300px; display: block; margin: 0 auto;">
         </div>
 
-        <!-- ฟอร์มสำหรับอัปโหลดไฟล์ -->
         <form action="update_payment.php" method="POST" enctype="multipart/form-data">
             <label for="payment_proof">หากชำระเรียบร้อยแล้ว โปรดแนบหลักฐานการชำระเงิน</label>
             <input type="file" name="payment_proof" id="payment_proof" required>

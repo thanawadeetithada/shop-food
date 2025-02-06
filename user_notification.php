@@ -47,20 +47,16 @@ $result = $stmt->get_result();
 body {
     font-family: Arial, sans-serif;
     background-color: #fff;
-    height: 100vh; /* ใช้ความสูงเต็มหน้าจอ */
+    height: 100vh;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
 }
-
-/* Container */
 .container {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* ให้ container ขยายจนเต็มหน้าจอ */
+    flex-grow: 1;
 }
-
-/* Header */
 header {
     padding: 1rem 1rem 0rem 1.8rem;
     font-size: 1.2rem;
@@ -69,9 +65,8 @@ header {
     margin-top: 4rem;
 }
 
-/* Main Section */
 main {
-    flex: 1; /* ให้เนื้อหาหลักขยายเต็มพื้นที่ */
+    flex: 1;
     overflow-y: auto;
     padding: 0 1rem;
 }

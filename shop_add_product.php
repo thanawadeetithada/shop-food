@@ -279,7 +279,7 @@ include 'db.php';
             optionCount++;
 
             if (optionCount >= maxOptions) {
-                document.querySelector(".add-option").style.display = "none"; // ซ่อนปุ่ม +
+                document.querySelector(".add-option").style.display = "none";
             }
         }
     }
@@ -290,7 +290,7 @@ include 'db.php';
             optionCount--;
 
             if (optionCount < maxOptions) {
-                document.querySelector(".add-option").style.display = "block"; // แสดงปุ่ม + กลับมา
+                document.querySelector(".add-option").style.display = "block";
             }
         }
     }

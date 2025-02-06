@@ -8,14 +8,13 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if (isset($_GET['store_id'])) {
-    $_SESSION['store_id'] = $_GET['store_id']; // เก็บค่า store_id ไว้ใน session
+    $_SESSION['store_id'] = $_GET['store_id'];
     $store_id = $_GET['store_id'];
 } elseif (isset($_SESSION['store_id'])) {
     $store_id = $_SESSION['store_id'];
 } else {
-    // กรณีไม่มี store_id
     echo "ไม่พบร้านค้า";
-    exit(); // ไม่ให้ทำการดึงข้อมูลร้านค้าต่อ
+    exit(); 
 }
 
 $user_id = $_SESSION['user_id'];
@@ -468,7 +467,6 @@ $stmt->close();
         var totalSalesAll = <?php echo is_numeric($total_sales_all) ? $total_sales_all : 0; ?>;
         document.getElementById('total-sales').textContent = parseFloat(totalSalesAll).toFixed(2);
 
-        // เริ่มต้นการตั้งค่าของ daterangepicker
         $('#date-range-picker').daterangepicker({
             opens: 'right',
             locale: {
